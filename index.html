@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07152d">
+  <meta name="description" content="Anvexa connects cloud infrastructure, security, and business insight so growing teams can scale with confidence.">
+  <title>Anvexa | Connecting vision. Scaling possibilities.</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #0c1932;
+      --muted: #627087;
+      --line: #e5eaf1;
+      --paper: #ffffff;
+      --wash: #f5f8fc;
+      --blue: #1769f5;
+      --cyan: #16b9e8;
+      --green: #10c99b;
+      --navy: #07152d;
+      --shadow: 0 24px 70px rgba(13, 35, 75, .12);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    button { color: inherit; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: #1769f5; font-size: .76rem; font-weight: 750;
+      letter-spacing: .13em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(100deg, #1769f5 4%, #11aee0 58%, #10bd91 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+    .button {
+      min-height: 48px; display: inline-flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 0 20px; border: 1px solid transparent; border-radius: 12px;
+      background: linear-gradient(110deg, #1769f5, #138edf 58%, #10b990);
+      color: #fff; font-weight: 700; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 10px 24px rgba(23, 105, 245, .18);
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 14px 28px rgba(23, 105, 245, .24); }
+    .button.secondary { color: var(--ink); background: #fff; border-color: var(--line); box-shadow: none; }
+    .button.secondary:hover { border-color: #b6c8e3; }
+    .button.small { min-height: 40px; padding-inline: 14px; border-radius: 10px; font-size: .88rem; }
+    .text-link { color: #1769f5; font-weight: 700; }
+    .text-link span { display: inline-block; margin-left: 5px; transition: transform .18s ease; }
+    .text-link:hover span { transform: translateX(4px); }
+
+    .site-header {
+      position: sticky; z-index: 20; top: 0; border-bottom: 1px solid rgba(229, 234, 241, .82);
+      background: rgba(255,255,255,.9); backdrop-filter: blur(18px);
+    }
+    .nav { min-height: 10px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+    .brand { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .brand-mark { width: 37px; height: 30px; }
+    .brand-name { font-size: 1.16rem; font-weight: 850; letter-spacing: .08em; }
+    .brand-caption { margin-top: 1px; color: #718097; font-size: .49rem; font-weight: 700; letter-spacing: .19em; }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: #4f5d73; font-size: .91rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-actions { display: flex; align-items: center; gap: 11px; }
+    .mobile-toggle { display: none; width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 11px; background: white; cursor: pointer; }
+
+    .hero {
+      position: relative; overflow: hidden; padding: 62px 0 86px;
+      background: radial-gradient(ellipse at 83% 18%, rgba(33, 180, 218, .12), transparent 28%),
+        radial-gradient(ellipse at 75% 65%, rgba(24, 201, 151, .09), transparent 30%),
+        linear-gradient(180deg, #fbfdff 0%, #fff 100%);
+    }
+    .hero::after {
+      position: absolute; z-index: 0; right: -210px; top: -260px; width: 670px; height: 670px;
+      content: ""; border: 1px solid rgba(35, 145, 224, .10); border-radius: 50%;
+      box-shadow: 0 0 0 45px rgba(35,145,224,.025), 0 0 0 100px rgba(35,145,224,.018);
+      pointer-events: none;
+    }
+    .brand-logo{display:block;width:170px;height:75px;object-fit:contain;object-position:left center;border-radius:7px;padding:4px;}
+    .portal-topbar .brand-logo{width:145px;height:45px;}
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 60px; }
+    .hero h1 { max-width: 660px; margin: 20px 0 18px; font-size: clamp(3rem, 6vw, 5.2rem); line-height: 1.02; letter-spacing: -.065em; }
+    .hero h1 em { font-style: normal; }
+    .hero-copy { max-width: 565px; margin: 0; color: var(--muted); font-size: 1.13rem; line-height: 1.8; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 30px; }
+    .hero-note { display: flex; align-items: center; gap: 9px; margin-top: 24px; color: #768398; font-size: .84rem; }
+    .hero-note svg { flex: 0 0 auto; color: #10b990; }
+    .hero-visual { position: relative; min-width: 0; }
+    .glow { position: absolute; inset: 14% 10%; border-radius: 50%; background: linear-gradient(120deg, rgba(23,105,245,.14), rgba(16,201,155,.14)); filter: blur(50px); }
+    .preview-window { position: relative; overflow: hidden; border: 1px solid rgba(202,215,233,.8); border-radius: 20px; background: #fff; box-shadow: var(--shadow); transform: perspective(1200px) rotateY(-5deg) rotateX(2deg); }
+    .window-bar { height: 46px; display: flex; align-items: center; gap: 7px; padding: 0 16px; border-bottom: 1px solid var(--line); background: #fbfcfe; }
+    .window-dot { width: 8px; height: 8px; border-radius: 50%; background: #d3dae5; }
+    .window-label { margin-left: auto; color: #9aa5b5; font-size: .66rem; letter-spacing: .08em; }
+    .preview-content { padding: 21px; }
+    .preview-title { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .preview-title strong { font-size: 1rem; }
+    .live-badge, .status-pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 99px; padding: 6px 9px; color: #128d6e; background: #eafaf4; font-size: .7rem; font-weight: 750; }
+    .live-badge::before, .status-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .preview-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; margin-top: 18px; }
+    .mini-stat { padding: 13px 12px; border: 1px solid #edf0f5; border-radius: 12px; background: #fbfcfe; }
+    .mini-stat span { display: block; color: #8a96a8; font-size: .68rem; }
+    .mini-stat strong { display: block; margin-top: 7px; font-size: 1.17rem; letter-spacing: -.035em; }
+    .mini-stat small { color: #16a77f; font-size: .65rem; }
+    .chart-card { margin-top: 13px; padding: 15px; border: 1px solid #edf0f5; border-radius: 13px; }
+    .chart-head { display: flex; justify-content: space-between; color: #66748a; font-size: .72rem; }
+    .chart-head strong { color: var(--ink); }
+    .chart { width: 100%; height: 112px; display: block; margin-top: 10px; }
+    .preview-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; margin-top: 12px; }
+    .preview-item { display: flex; align-items: center; gap: 10px; padding: 11px; border-radius: 11px; background: #f7f9fc; }
+    .preview-icon, .feature-icon { display: grid; place-items: center; flex: 0 0 auto; width: 34px; height: 34px; border-radius: 10px; color: #1769f5; background: #eaf1ff; }
+    .preview-item strong { display: block; font-size: .75rem; }
+    .preview-item small { color: #8793a5; font-size: .65rem; }
+
+    .trust-strip { border-block: 1px solid var(--line); background: #fff; }
+    .trust-content { min-height: 78px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 28px; color: #657187; font-size: .83rem; }
+    .trust-content strong { color: var(--ink); }
+    .trust-point { display: inline-flex; align-items: center; gap: 8px; }
+    .trust-point svg { color: #17b98e; }
+
+    section.content-section { padding: 100px 0; }
+    .section-heading { max-width: 690px; margin: 0 auto 48px; text-align: center; }
+    .section-heading h2 { margin: 15px 0 13px; font-size: clamp(2.1rem, 4vw, 3.2rem); line-height: 1.1; letter-spacing: -.05em; }
+    .section-heading p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.75; }
+    .service-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .service-card { min-height: 255px; padding: 23px; border: 1px solid var(--line); border-radius: 16px; background: #fff; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .service-card:hover { transform: translateY(-4px); border-color: #cbd9ee; box-shadow: 0 18px 38px rgba(13,35,75,.08); }
+    .service-card h3 { margin: 19px 0 9px; font-size: 1.08rem; letter-spacing: -.02em; }
+    .service-card p { margin: 0; color: var(--muted); font-size: .89rem; line-height: 1.7; }
+    .service-card .text-link { display: inline-block; margin-top: 19px; font-size: .84rem; }
+    .feature-icon { width: 43px; height: 43px; border-radius: 12px; }
+    .feature-icon.green { color: #129771; background: #e9f9f3; }
+    .feature-icon.cyan { color: #118fac; background: #e8f8fc; }
+    .feature-icon.violet { color: #7656d9; background: #f1edff; }
+    .feature-icon svg { width: 21px; height: 21px; }
+    .cfo-section { background: linear-gradient(180deg, #f3f7fc, #fff); }
+    .cfo-panel { position: relative; overflow: hidden; padding: 38px; border: 1px solid #dfe9f5; border-radius: 22px; background: #fff; box-shadow: 0 20px 55px rgba(13,35,75,.07); }
+    .cfo-panel::after { position: absolute; z-index: 0; right: -120px; top: -190px; width: 430px; height: 430px; content: ""; border: 1px solid rgba(35,145,224,.11); border-radius: 50%; box-shadow: 0 0 0 38px rgba(35,145,224,.025), 0 0 0 78px rgba(35,145,224,.018); pointer-events: none; }
+    .cfo-top, .cfo-process-wrap { position: relative; z-index: 1; }
+    .cfo-top { display: grid; grid-template-columns: 1fr .8fr; align-items: center; gap: 48px; }
+    .premium-label { display: inline-flex; align-items: center; gap: 8px; padding: 7px 10px; border: 1px solid #d8e6fb; border-radius: 99px; color: #1769f5; background: #f4f8ff; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .premium-label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(120deg, #1769f5, #10c99b); }
+    .cfo-copy h2 { margin: 16px 0 12px; font-size: clamp(2.15rem, 4vw, 3.2rem); line-height: 1.07; letter-spacing: -.055em; }
+    .cfo-copy > p { max-width: 620px; margin: 0; color: var(--muted); line-height: 1.8; }
+    .provider-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 21px; }
+    .provider-list span { padding: 7px 10px; border: 1px solid #e6ebf2; border-radius: 8px; color: #536177; background: #fff; font-size: .75rem; font-weight: 700; }
+    .cfo-capabilities { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cfo-capability { display: flex; align-items: flex-start; gap: 10px; min-height: 83px; padding: 13px; border: 1px solid #e8edf4; border-radius: 12px; background: rgba(255,255,255,.9); }
+    .cfo-capability-icon { display: grid; place-items: center; flex: 0 0 auto; width: 27px; height: 27px; border-radius: 8px; color: #138b78; background: #e9f9f3; font-size: .85rem; font-weight: 800; }
+    .cfo-capability strong { display: block; font-size: .78rem; }
+    .cfo-capability small { display: block; margin-top: 4px; color: #7d899b; font-size: .68rem; line-height: 1.45; }
+    .cfo-process-wrap { margin-top: 33px; padding-top: 25px; border-top: 1px solid #edf0f5; }
+    .cfo-process-title { margin: 0 0 15px; font-size: .88rem; font-weight: 750; }
+    .cfo-process { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+    .cfo-process-step { min-height: 91px; padding: 12px 10px; border: 1px solid #e8edf4; border-radius: 11px; background: #fbfcfe; }
+    .cfo-process-step span { display: block; margin-bottom: 8px; color: #168d87; font-size: .65rem; font-weight: 800; letter-spacing: .08em; }
+    .cfo-process-step strong { display: block; font-size: .74rem; line-height: 1.4; }
+    .cfo-analogy { display: flex; align-items: center; gap: 12px; margin-top: 15px; padding: 13px 15px; border-radius: 11px; color: #28527e; background: linear-gradient(100deg, #eef5ff, #edfbf6); font-size: .83rem; line-height: 1.55; }
+    .cfo-analogy strong { color: #123c70; }
+
+    .platform-section { background: var(--wash); }
+    .platform-grid { display: grid; grid-template-columns: .87fr 1.13fr; gap: 70px; align-items: center; }
+    .platform-copy h2 { margin: 15px 0; font-size: clamp(2.1rem, 4vw, 3.3rem); line-height: 1.1; letter-spacing: -.05em; }
+    .platform-copy > p { color: var(--muted); line-height: 1.8; }
+    .platform-list { display: grid; gap: 15px; margin: 27px 0 30px; padding: 0; list-style: none; }
+    .platform-list li { display: flex; gap: 11px; align-items: flex-start; color: #536177; font-size: .92rem; line-height: 1.6; }
+    .check { display: grid; place-items: center; flex: 0 0 auto; width: 21px; height: 21px; margin-top: 1px; border-radius: 50%; color: #0c9d77; background: #e0f7ef; }
+    .platform-demo { padding: 17px; border: 1px solid #e3eaf3; border-radius: 20px; background: #fff; box-shadow: 0 20px 50px rgba(13,35,75,.07); }
+    .demo-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 2px 2px 15px; }
+    .demo-top strong { font-size: .94rem; }
+    .demo-top span { color: #8490a2; font-size: .74rem; }
+    .demo-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+    .demo-card { padding: 14px; border: 1px solid #edf0f5; border-radius: 13px; }
+    .demo-card-label { display: flex; justify-content: space-between; align-items: center; color: #778499; font-size: .72rem; }
+    .demo-card-value { margin-top: 9px; font-size: 1.42rem; font-weight: 780; letter-spacing: -.04em; }
+    .demo-card-note { margin-top: 5px; color: #19a27c; font-size: .68rem; }
+    .bars { height: 55px; display: flex; align-items: end; gap: 7px; margin-top: 10px; }
+    .bars i { flex: 1; min-height: 8px; border-radius: 5px 5px 2px 2px; background: linear-gradient(180deg, #37bce1, #1769f5); }
+    .activity { display: grid; gap: 10px; margin-top: 11px; }
+    .activity-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 11px; border-radius: 10px; background: #f8fafd; font-size: .73rem; }
+    .activity-row span { color: #66748a; }
+    .activity-row strong { font-size: .72rem; }
+
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; counter-reset: step; }
+    .step { position: relative; padding-top: 9px; }
+    .step::before { counter-increment: step; content: "0" counter(step); display: grid; place-items: center; width: 42px; height: 42px; margin-bottom: 21px; border: 1px solid #dce8f8; border-radius: 12px; color: #1769f5; background: #eff5ff; font-size: .88rem; font-weight: 800; }
+    .step:not(:last-child)::after { position: absolute; top: 30px; left: 60px; width: calc(100% - 42px); height: 1px; content: ""; background: linear-gradient(90deg, #bad2f5, #e5eaf1); }
+    .step h3 { margin: 0 0 9px; font-size: 1.05rem; }
+    .step p { max-width: 320px; margin: 0; color: var(--muted); font-size: .91rem; line-height: 1.7; }
+
+    .cta-section { padding: 0 0 100px; }
+    .cta-panel { position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; gap: 28px; padding: 45px 52px; border-radius: 22px; color: #fff; background: linear-gradient(115deg, #0d2f70 0%, #115dbb 53%, #078d82 100%); }
+    .cta-panel::after { position: absolute; right: -55px; top: -170px; width: 430px; height: 430px; content: ""; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; box-shadow: 0 0 0 35px rgba(255,255,255,.035), 0 0 0 75px rgba(255,255,255,.025); }
+    .cta-copy { position: relative; z-index: 1; }
+    .cta-copy h2 { max-width: 610px; margin: 0 0 10px; font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -.04em; }
+    .cta-copy p { margin: 0; color: rgba(255,255,255,.76); line-height: 1.6; }
+    .cta-panel .button { position: relative; z-index: 1; flex-shrink: 0; color: #0d3671; background: #fff; box-shadow: none; }
+
+    .site-footer { padding: 10px 0; border-top: 1px solid var(--line); }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: #7d899b; font-size: .78rem; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a:hover { color: var(--blue); }
+
+    .portal-view { min-height: 100vh; display: none; background: #f5f7fb; }
+    body.portal-open .marketing-view { display: none; }
+    body.portal-open .portal-view { display: block; }
+    .portal-topbar { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 30px; border-bottom: 1px solid var(--line); background: #fff; }
+    .portal-top-left, .portal-top-right { display: flex; align-items: center; gap: 19px; }
+    .portal-topbar .brand-mark { width: 34px; }
+    .portal-back { display: inline-flex; align-items: center; gap: 8px; color: #58667c; font-size: .84rem; font-weight: 650; }
+    .workspace-name { padding-left: 19px; border-left: 1px solid var(--line); color: #69768a; font-size: .83rem; }
+    .sample-label { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border: 1px solid #f1dfb8; border-radius: 8px; color: #97650a; background: #fff9e9; font-size: .69rem; font-weight: 750; }
+    .avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #175fc7; background: #e7f0ff; font-size: .75rem; font-weight: 800; }
+    .portal-shell { display: grid; grid-template-columns: 224px minmax(0, 1fr); min-height: calc(100vh - 70px); }
+    .portal-sidebar { display: flex; flex-direction: column; padding: 23px 14px; border-right: 1px solid var(--line); background: #fff; }
+    .sidebar-label { padding: 0 12px; color: #9aa5b4; font-size: .65rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    .portal-nav { display: grid; gap: 5px; margin-top: 11px; }
+    .portal-nav button { display: flex; align-items: center; gap: 11px; width: 100%; padding: 11px 12px; border: 0; border-radius: 10px; color: #657287; background: transparent; text-align: left; font-size: .84rem; font-weight: 620; cursor: pointer; }
+    .portal-nav button:hover { color: var(--blue); background: #f3f7ff; }
+    .portal-nav button.active { color: #1769f5; background: #edf4ff; }
+    .portal-nav svg { width: 18px; height: 18px; flex: 0 0 auto; }
+    .sidebar-help { margin-top: auto; padding: 15px 13px; border: 1px solid #e8edf5; border-radius: 12px; background: #fafbfd; }
+    .sidebar-help strong { font-size: .79rem; }
+    .sidebar-help p { margin: 6px 0 11px; color: #79869a; font-size: .72rem; line-height: 1.5; }
+    .sidebar-help button { padding: 0; border: 0; color: #1769f5; background: none; font-size: .74rem; font-weight: 750; cursor: pointer; }
+    .portal-main { min-width: 0; padding: 34px clamp(20px, 4vw, 48px) 50px; }
+    .portal-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 26px; }
+    .portal-heading h1 { margin: 0 0 7px; font-size: clamp(1.65rem, 3vw, 2.2rem); letter-spacing: -.045em; }
+    .portal-heading p { margin: 0; color: #78859a; font-size: .9rem; }
+    .portal-heading-actions { display: flex; align-items: center; gap: 10px; }
+    .period-select { min-height: 40px; padding: 0 12px; border: 1px solid #dfe5ee; border-radius: 9px; color: #56647a; background: #fff; font-size: .78rem; }
+    .portal-page { display: none; }
+    .portal-page.active { display: block; }
+    .metric-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .metric-card { padding: 18px; border: 1px solid #e6ebf2; border-radius: 14px; background: #fff; }
+    .metric-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #778498; font-size: .76rem; }
+    .metric-card .metric-icon { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 9px; color: #1769f5; background: #edf4ff; }
+    .metric-card .metric-icon svg { width: 16px; height: 16px; }
+    .metric-value { margin-top: 14px; font-size: 1.75rem; font-weight: 800; letter-spacing: -.05em; }
+    .metric-foot { display: flex; align-items: center; gap: 5px; margin-top: 6px; color: #159b75; font-size: .71rem; }
+    .metric-foot.neutral { color: #778498; }
+    .portal-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(250px, .82fr); gap: 15px; margin-top: 15px; }
+    .portal-card { min-width: 0; padding: 19px; border: 1px solid #e6ebf2; border-radius: 14px; background: #fff; }
+    .cfo-overview-card { display: flex; align-items: center; justify-content: space-between; gap: 22px; border-color: #dce8f8; background: linear-gradient(110deg, #fff, #f3f8ff 65%, #f0fbf7); }
+    .cfo-overview-copy { display: flex; align-items: flex-start; gap: 13px; }
+    .cfo-overview-copy h2 { margin: 1px 0 5px; font-size: .96rem; }
+    .cfo-overview-copy p { margin: 0; color: #78859a; font-size: .74rem; line-height: 1.55; }
+    .cfo-overview-forecast { margin-top: 7px; color: #1769f5; font-size: .78rem; font-weight: 750; }
+    .cfo-budget { margin-top: 16px; }
+    .cfo-budget-heading { display: flex; justify-content: space-between; gap: 10px; color: #647188; font-size: .72rem; }
+    .budget-track { height: 8px; overflow: hidden; margin-top: 8px; border-radius: 99px; background: #eaf0f7; }
+    .budget-track span { display: block; height: 100%; width: 72%; border-radius: inherit; background: linear-gradient(90deg, #2386f2, #10b990); }
+    .cfo-platforms { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+    .cfo-platforms span { padding: 6px 9px; border: 1px solid #e5ebf3; border-radius: 8px; color: #627087; background: #fbfcfe; font-size: .68rem; font-weight: 700; }
+    .card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+    .card-heading h2 { margin: 0; font-size: .96rem; letter-spacing: -.02em; }
+    .card-heading p { margin: 5px 0 0; color: #8995a7; font-size: .72rem; }
+    .chart-legend { display: flex; align-items: center; gap: 6px; color: #8490a2; font-size: .7rem; }
+    .chart-legend::before { width: 7px; height: 7px; content: ""; border-radius: 50%; background: #2386f2; }
+    .cfo-chart-legend { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 7px; color: #8490a2; font-size: .7rem; }
+    .cfo-chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .cfo-chart-legend span::before { width: 7px; height: 7px; content: ""; border-radius: 50%; background: #2386f2; }
+    .cfo-chart-legend span:last-child::before { background: #10b990; }
+    .portal-chart { width: 100%; height: 210px; display: block; margin-top: 18px; }
+    .resource-list { display: grid; gap: 0; margin-top: 14px; }
+    .resource-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid #eef1f5; }
+    .resource-info { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .resource-info .feature-icon { width: 33px; height: 33px; border-radius: 9px; }
+    .resource-info .feature-icon svg { width: 17px; height: 17px; }
+    .resource-info strong, .resource-info small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .resource-info strong { font-size: .78rem; }
+    .resource-info small { margin-top: 3px; color: #919cad; font-size: .67rem; }
+    .resource-value { color: #536177; font-size: .75rem; font-weight: 650; }
+    .status-pill { padding: 5px 8px; font-size: .65rem; white-space: nowrap; }
+    .status-pill.warn { color: #a56a11; background: #fff7e6; }
+    .status-pill.warn::before { background: currentColor; }
+    .alert-list { display: grid; gap: 11px; margin-top: 15px; }
+    .alert-row { display: flex; gap: 10px; align-items: flex-start; }
+    .alert-indicator { display: grid; place-items: center; flex: 0 0 auto; width: 27px; height: 27px; border-radius: 8px; color: #a46c12; background: #fff6e3; }
+    .alert-indicator.ok { color: #118a6b; background: #e8f8f1; }
+    .alert-row strong { display: block; font-size: .75rem; }
+    .alert-row small { display: block; margin-top: 4px; color: #8a96a8; font-size: .68rem; line-height: 1.45; }
+    .portal-table-wrap { overflow-x: auto; margin-top: 16px; }
+    .portal-table { width: 100%; border-collapse: collapse; text-align: left; }
+    .portal-table th { padding: 10px 12px; border-bottom: 1px solid #edf0f5; color: #8a96a8; font-size: .68rem; font-weight: 700; white-space: nowrap; }
+    .portal-table td { padding: 13px 12px; border-bottom: 1px solid #f0f2f6; color: #536177; font-size: .76rem; white-space: nowrap; }
+    .portal-table td:first-child { color: var(--ink); font-weight: 650; }
+    .empty-note { margin: 14px 0 0; color: #8591a3; font-size: .78rem; line-height: 1.6; }
+    .support-form { display: grid; gap: 15px; max-width: 640px; margin-top: 19px; }
+    .support-form label { display: grid; gap: 7px; color: #58667b; font-size: .78rem; font-weight: 650; }
+    .support-form input, .support-form select, .support-form textarea { width: 100%; padding: 11px 12px; border: 1px solid #dfe5ee; border-radius: 9px; outline: none; color: var(--ink); background: #fff; font-size: .82rem; }
+    .support-form input:focus, .support-form select:focus, .support-form textarea:focus { border-color: #72a8f3; box-shadow: 0 0 0 3px rgba(23,105,245,.1); }
+    .support-form textarea { min-height: 120px; resize: vertical; }
+    .form-note { margin: 0; color: #8591a3; font-size: .72rem; line-height: 1.55; }
+    .toast { position: fixed; z-index: 60; right: 22px; bottom: 22px; max-width: min(440px, calc(100vw - 44px)); padding: 14px 17px; border: 1px solid #cfe7dd; border-radius: 12px; color: #17674f; background: #f0fbf6; box-shadow: 0 15px 40px rgba(13,35,75,.14); font-size: .85rem; line-height: 1.5; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .mobile-sidebar-toggle { display: none; }
+
+    @media (max-width: 960px) {
+      .hero-grid { gap: 34px; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .platform-grid { gap: 40px; }
+      .cfo-top { grid-template-columns: 1fr; gap: 24px; }
+      .cfo-process { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .portal-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .wrap { width: min(100% - 36px, 560px); }
+      .nav { min-height: 68px; }
+      .brand-caption { display: none; }
+      .site-header .brand-logo { width: 116px; height: 39px; padding: 2px; }
+      .portal-topbar .brand-logo { width: 116px; height: 39px; padding: 2px; }
+      .nav-links { position: absolute; top: 67px; left: 0; right: 0; display: none; align-items: stretch; gap: 0; padding: 8px 18px 15px; border-bottom: 1px solid var(--line); background: #fff; }
+      .nav-links.open { display: grid; }
+      .nav-links a { padding: 12px 4px; }
+      .nav-actions { gap: 6px; }
+      .nav-actions .button { min-height: 39px; padding: 0 10px; font-size: .76rem; }
+      .nav-actions > a.button { display: none; }
+      .mobile-toggle { display: grid; place-items: center; }
+      .hero { padding: 64px 0 62px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 38px; }
+      .hero h1 { max-width: 560px; font-size: clamp(2.8rem, 12vw, 4rem); }
+      .hero-copy { font-size: 1rem; }
+      .hero-visual { max-width: 570px; }
+      .preview-window { transform: none; }
+      section.content-section { padding: 74px 0; }
+      .section-heading { margin-bottom: 33px; }
+      .service-grid { gap: 11px; }
+      .service-card { min-height: 0; padding: 18px; }
+      .service-card h3 { margin-top: 15px; font-size: 1rem; }
+      .service-card p { font-size: .83rem; }
+      .platform-grid { grid-template-columns: 1fr; gap: 32px; }
+      .platform-copy h2 { font-size: 2.45rem; }
+      .cfo-panel { padding: 25px 20px; }
+      .cfo-process { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cfo-analogy { align-items: flex-start; }
+      .cfo-overview-card { align-items: flex-start; flex-direction: column; }
+      .steps { grid-template-columns: 1fr; gap: 26px; }
+      .step { display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; }
+      .step::before { grid-row: span 2; margin: 0; }
+      .step:not(:last-child)::after { display: none; }
+      .step h3 { align-self: end; margin: 0 0 5px; }
+      .step p { grid-column: 2; }
+      .cta-section { padding-bottom: 70px; }
+      .cta-panel { align-items: flex-start; flex-direction: column; padding: 32px 26px; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+      .portal-topbar { height: 62px; padding: 0 16px; }
+      .portal-top-left, .portal-top-right { gap: 11px; }
+      .workspace-name { display: none; }
+      .portal-shell { grid-template-columns: 1fr; }
+      .portal-sidebar { display: none; }
+      .portal-sidebar.mobile-open { display: flex; position: absolute; z-index: 15; top: 62px; left: 0; right: 0; min-height: 0; padding: 14px; border-bottom: 1px solid var(--line); box-shadow: 0 18px 25px rgba(13,35,75,.1); }
+      .sidebar-help { display: none; }
+      .portal-nav { grid-template-columns: repeat(3, 1fr); }
+      .portal-nav button { justify-content: center; flex-direction: column; gap: 6px; padding: 10px 6px; font-size: .7rem; }
+      .portal-main { padding: 24px 17px 38px; }
+      .portal-heading { flex-direction: column; }
+      .portal-heading-actions { width: 100%; }
+      .period-select { flex: 1; }
+      .mobile-sidebar-toggle { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 9px; background: #fff; cursor: pointer; }
+      .portal-chart { height: 180px; }
+    }
+    @media (max-width: 440px) {
+      .nav-actions .button { padding: 0 10px; }
+      .brand-name { font-size: 1.03rem; }
+      .brand-mark { width: 31px; }
+      .preview-content { padding: 14px; }
+      .preview-stats { gap: 7px; }
+      .mini-stat { padding: 10px 8px; }
+      .mini-stat strong { font-size: 1rem; }
+      .preview-bottom { grid-template-columns: 1fr; }
+      .service-grid { grid-template-columns: 1fr; }
+      .cfo-capabilities { grid-template-columns: 1fr; }
+      .demo-card { padding: 11px; }
+      .metric-card { padding: 14px; }
+      .metric-card .metric-top { align-items: flex-start; }
+      .metric-value { font-size: 1.5rem; }
+      .resource-row { grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+      .resource-row .resource-value { display: none; }
+      .sample-label { font-size: .62rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="marketing-view">
+    <header class="site-header">
+      <div class="wrap nav">
+         <a class="brand" href="#top" aria-label="Anvexa home">
+        <img class="brand-logo" src="Anvexa.png" alt="Anvexa Cloud Infrastructure Services — Connecting Vision. Scaling Possibilities." />
+      </a>
+        <nav class="nav-links" id="marketing-nav" aria-label="Main navigation">
+          <a href="#services">Services</a>
+          <a href="#ai-cloud-cfo">AI Cloud CFO</a>
+          <a href="#platform">Client platform</a>
+          <a href="#how-it-works">How it works</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="button secondary small portal-open" type="button">Client portal</button>
+          <a class="button small" href="#contact">Talk to our team <span aria-hidden="true">→</span></a>
+          <button class="mobile-toggle" id="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="wrap hero-grid">
+          <div>
+            <span class="eyebrow">Cloud infrastructure services</span>
+            <h1><em>Connecting vision.</em><br><span class="gradient-text">Scaling possibilities.</span></h1>
+            <p class="hero-copy">Cloud, security, and business insight—connected around the way your team works. Anvexa helps you build a dependable digital foundation and grow with confidence.</p>
+            <div class="hero-actions">
+              <a class="button" href="#contact">Plan your next step <span aria-hidden="true">→</span></a>
+              <button class="button secondary portal-open" type="button">Explore the client portal</button>
+            </div>
+            <div class="hero-note">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>
+              A practical partner from planning and migration to ongoing support.
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="Preview of the Anvexa client dashboard">
+            <div class="glow"></div>
+            <div class="preview-window">
+              <div class="window-bar"><i class="window-dot"></i><i class="window-dot"></i><i class="window-dot"></i><span class="window-label">ANVEXA CLIENT SPACE</span></div>
+              <div class="preview-content">
+                <div class="preview-title"><strong>Workspace overview</strong><span class="live-badge">All systems healthy</span></div>
+                <div class="preview-stats">
+                  <div class="mini-stat"><span>Monthly cloud spend</span><strong>₹84,250</strong><small>Within your budget</small></div>
+                  <div class="mini-stat"><span>Service availability</span><strong>99.96%</strong><small>Last 30 days</small></div>
+                  <div class="mini-stat"><span>Protected assets</span><strong>18</strong><small>Monitored</small></div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-head"><strong>Cloud usage</strong><span>Last 7 days</span></div>
+                  <svg class="chart" viewBox="0 0 520 112" preserveAspectRatio="none" role="img" aria-label="Sample cloud usage trend over seven days">
+                    <defs><linearGradient id="preview-area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2789f2" stop-opacity=".2"/><stop offset="1" stop-color="#2789f2" stop-opacity="0"/></linearGradient></defs>
+                    <path d="M0 84H520M0 54H520M0 24H520" stroke="#edf1f6" stroke-dasharray="3 5"/>
+                    <path d="M0 78C30 74 40 62 76 67S117 83 151 60s44-5 72-20 45 14 76 4 43-12 69-2 41-15 70-18 42 13 82-6v94H0Z" fill="url(#preview-area)"/>
+                    <path d="M0 78C30 74 40 62 76 67S117 83 151 60s44-5 72-20 45 14 76 4 43-12 69-2 41-15 70-18 42 13 82-6" fill="none" stroke="#2487ee" stroke-width="3" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="preview-bottom">
+                  <div class="preview-item"><span class="preview-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></span><span><strong>Security checks</strong><small>No critical issues</small></span></div>
+                  <div class="preview-item"><span class="preview-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5m0 14h17"/><path d="m7 15 4-4 3 2 6-7"/></svg></span><span><strong>Weekly insight</strong><small>Ready to review</small></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="trust-strip">
+        <div class="wrap trust-content">
+          <strong>One partner for your digital foundation</strong>
+          <span class="trust-point"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Cloud that grows with you</span>
+          <span class="trust-point"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>Security in the workflow</span>
+          <span class="trust-point"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>People-first support</span>
+        </div>
+      </div>
+
+      <section class="content-section" id="services">
+        <div class="wrap">
+          <div class="section-heading">
+            <span class="eyebrow">Services built around your team</span>
+            <h2>Everything connected.<br><span class="gradient-text">Nothing out of sight.</span></h2>
+            <p>Bring your infrastructure, essential business tools, and security practices into a clearer, easier-to-manage operation.</p>
+          </div>
+          <div class="service-grid">
+            <article class="service-card">
+              <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 18h12a4 4 0 0 0 .4-8A6.5 6.5 0 0 0 6 9a4.5 4.5 0 0 0 0 9Z"/><path d="M9 14h6m-3-3v6"/></svg></span>
+              <h3>Cloud migration &amp; support</h3>
+              <p>Move systems and data with a clear plan, careful coordination, and support beyond go-live.</p>
+              <a class="text-link" href="#contact">Discuss a migration <span>→</span></a>
+            </article>
+            <article class="service-card">
+              <span class="feature-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+              <h3>Security &amp; resilience</h3>
+              <p>Identify gaps, strengthen access and systems, and make security part of everyday operations.</p>
+              <a class="text-link" href="#contact">Review your security <span>→</span></a>
+            </article>
+            <article class="service-card">
+              <span class="feature-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5m0 14h17"/><path d="m7 15 4-4 3 2 6-7"/></svg></span>
+              <h3>Connected business platform</h3>
+              <p>Bring billing, inventory, dispatch, and reporting together around shared, useful information.</p>
+              <a class="text-link" href="#platform">See the client view <span>→</span></a>
+            </article>
+            <article class="service-card">
+              <span class="feature-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></span>
+              <h3>AI &amp; workflow automation</h3>
+              <p>Reduce repetitive work and turn operational data into timely, easy-to-understand reports.</p>
+              <a class="text-link" href="#contact">Explore automation <span>→</span></a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section cfo-section" id="ai-cloud-cfo">
+        <div class="wrap">
+          <div class="cfo-panel">
+            <div class="cfo-top">
+              <div class="cfo-copy">
+                <span class="premium-label">Anvexa premium service</span>
+                <h2>AI Cloud CFO</h2>
+                <p><strong>A virtual CFO for your cloud infrastructure.</strong> Continuously monitor usage across AWS, Azure, and Google Cloud, anticipate upcoming costs, spot waste, and get practical recommendations for more efficient spending.</p>
+                <div class="provider-list" aria-label="Supported cloud platforms"><span>AWS</span><span>Microsoft Azure</span><span>Google Cloud</span></div>
+                <div style="margin-top:22px"><button class="button" type="button" data-go-page="cfo">Explore AI Cloud CFO in the portal <span aria-hidden="true">→</span></button></div>
+              </div>
+              <div class="cfo-capabilities" aria-label="AI Cloud CFO capabilities">
+                <article class="cfo-capability"><span class="cfo-capability-icon">↗</span><span><strong>Predict future bills</strong><small>Forecast costs before your next cloud bill arrives.</small></span></article>
+                <article class="cfo-capability"><span class="cfo-capability-icon">⌕</span><span><strong>Find resource waste</strong><small>Spot idle, underused, or oversized resources.</small></span></article>
+                <article class="cfo-capability"><span class="cfo-capability-icon">↘</span><span><strong>Recommend savings</strong><small>Explore right-sizing and auto-scaling opportunities.</small></span></article>
+                <article class="cfo-capability"><span class="cfo-capability-icon">!</span><span><strong>Send budget alerts</strong><small>Get notified as spending approaches your limits.</small></span></article>
+                <article class="cfo-capability"><span class="cfo-capability-icon">＋</span><span><strong>Scale with clarity</strong><small>Understand how growth may affect cloud costs.</small></span></article>
+              </div>
+            </div>
+            <div class="cfo-process-wrap">
+              <h3 class="cfo-process-title">How it works</h3>
+              <div class="cfo-process" aria-label="Business growth leads to smarter cloud cost management">
+                <div class="cfo-process-step"><span>01 · GROW</span><strong>Business grows</strong></div>
+                <div class="cfo-process-step"><span>02 · SCALE</span><strong>Cloud usage increases</strong></div>
+                <div class="cfo-process-step"><span>03 · MONITOR</span><strong>AI Cloud CFO monitors resources</strong></div>
+                <div class="cfo-process-step"><span>04 · FORECAST</span><strong>Predicts future spending</strong></div>
+                <div class="cfo-process-step"><span>05 · DETECT</span><strong>Finds waste and cost risks</strong></div>
+                <div class="cfo-process-step"><span>06 · RECOMMEND</span><strong>Suggests optimizations</strong></div>
+                <div class="cfo-process-step"><span>07 · IMPROVE</span><strong>Lower costs, smarter scaling</strong></div>
+              </div>
+              <div class="cfo-analogy"><span aria-hidden="true">✦</span><span><strong>Your GPS for cloud spending.</strong> See where your money is going, anticipate what’s ahead, and choose a more cost-efficient route.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section platform-section" id="platform">
+        <div class="wrap platform-grid">
+          <div class="platform-copy">
+            <span class="eyebrow">Your client workspace</span>
+            <h2>Know what’s happening. <span class="gradient-text">Know what to do next.</span></h2>
+            <p>A single workspace makes day-to-day operations easier to understand, helping your team stay informed without chasing updates across tools.</p>
+            <ul class="platform-list">
+              <li><span class="check">✓</span><span><strong>See the essentials.</strong> Review cloud usage, service health, and monitored assets in one place.</span></li>
+              <li><span class="check">✓</span><span><strong>Stay ahead of changes.</strong> Surface noteworthy events, security checks, and cost trends.</span></li>
+              <li><span class="check">✓</span><span><strong>Keep work moving.</strong> Find reports and request help from the same client workspace.</span></li>
+            </ul>
+            <button class="button portal-open" type="button">Open sample client portal <span aria-hidden="true">→</span></button>
+          </div>
+          <div class="platform-demo" aria-label="Sample client workspace dashboard">
+            <div class="demo-top"><strong>Client workspace</strong><span>Sample data · Overview</span></div>
+            <div class="demo-cards">
+              <div class="demo-card"><div class="demo-card-label"><span>Cloud spend</span><span>₹</span></div><div class="demo-card-value">₹84,250</div><div class="demo-card-note">● Within monthly budget</div><div class="bars"><i style="height:34%"></i><i style="height:49%"></i><i style="height:43%"></i><i style="height:66%"></i><i style="height:58%"></i><i style="height:79%"></i><i style="height:70%"></i><i style="height:92%"></i><i style="height:77%"></i><i style="height:86%"></i></div></div>
+              <div class="demo-card"><div class="demo-card-label"><span>Service health</span><span>↗</span></div><div class="demo-card-value">Healthy</div><div class="demo-card-note">● No active incidents</div><div class="activity"><div class="activity-row"><span>API service</span><strong>Operational</strong></div><div class="activity-row"><span>Database</span><strong>Operational</strong></div></div></div>
+            </div>
+            <div class="activity">
+              <div class="activity-row"><span>Weekly operations report</span><strong>Available&nbsp; →</strong></div>
+              <div class="activity-row"><span>Security review</span><strong>Completed&nbsp; ✓</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="how-it-works">
+        <div class="wrap">
+          <div class="section-heading">
+            <span class="eyebrow">A clear path forward</span>
+            <h2>From first conversation<br>to confident growth.</h2>
+            <p>Start with your priorities. We’ll shape a practical plan that fits your environment and your pace.</p>
+          </div>
+          <div class="steps">
+            <article class="step"><h3>Understand your setup</h3><p>We learn how your systems work today, where the friction is, and what success looks like for your team.</p></article>
+            <article class="step"><h3>Plan and connect</h3><p>Agree on a transparent scope, then migrate, integrate, or strengthen the right parts of your environment.</p></article>
+            <article class="step"><h3>Support and improve</h3><p>Monitor what matters, share useful updates, and keep improving as your needs change.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section" id="contact">
+        <div class="wrap">
+          <div class="cta-panel">
+            <div class="cta-copy"><h2>Let’s make your next move a confident one.</h2><p>Tell us what you’re working toward. We’ll help you find a practical place to start.</p></div>
+            <a class="button" href="mailto:hello@anvexa.com?subject=Let%27s%20talk%20about%20Anvexa">Start a conversation <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-row">
+        <a class="brand" href="#top" aria-label="Anvexa home">
+        <img class="brand-logo" src="Anvexa.png" alt="Anvexa Cloud Infrastructure Services — Connecting Vision. Scaling Possibilities." />
+      </a>
+        <span>Connecting vision. Scaling possibilities.</span>
+        <div class="footer-links"><a href="#services">Services</a><a href="#platform">Client platform</a><button class="text-link portal-open" type="button" style="border:0;background:none;padding:0;cursor:pointer">Client portal</button></div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="portal-view" id="client-portal">
+    <header class="portal-topbar">
+      <div class="portal-top-left">
+        <button class="mobile-sidebar-toggle" id="portal-menu-toggle" type="button" aria-label="Open client navigation" aria-expanded="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+         <a class="brand" aria-label="Anvexa home" href="index.html">
+        <img class="brand-logo" src="Anvexa.png" alt="Anvexa Cloud Infrastructure Services — Connecting Vision. Scaling Possibilities." />
+      </a>
+        <span class="workspace-name">Client workspace</span>
+      </div>
+      <div class="portal-top-right"><span class="sample-label">DEMO · SAMPLE DATA</span><span class="avatar" aria-label="Sample workspace">SW</span></div>
+    </header>
+    <div class="portal-shell">
+      <aside class="portal-sidebar" id="portal-sidebar">
+        <span class="sidebar-label">Workspace</span>
+        <nav class="portal-nav" aria-label="Client workspace navigation">
+          <button class="active" type="button" data-page="overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg>Overview</button>
+          <button type="button" data-page="cfo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18m5-13H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H7"/><path d="m18 4 2 2-2 2"/></svg>AI Cloud CFO</button>
+          <button type="button" data-page="infrastructure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 6.5h.01M8 17.5h.01M12 6.5h4M12 17.5h4"/></svg>Infrastructure</button>
+          <button type="button" data-page="reports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 3h10l4 4v14H5z"/><path d="M14 3v5h5M8 13h8M8 17h8"/></svg>Reports</button>
+          <button type="button" data-page="security"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 7v5c0 5 3.4 8 8 9 4.6-1 8-4 8-9V7l-8-4Z"/><path d="m9 12 2 2 4-4"/></svg>Security</button>
+          <button type="button" data-page="support"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13v-2a8 8 0 0 1 16 0v2"/><path d="M4 13h3v6H6a2 2 0 0 1-2-2v-4Zm16 0h-3v6h1a2 2 0 0 0 2-2v-4ZM12 21h3"/></svg>Support</button>
+        </nav>
+        <div class="sidebar-help"><strong>Need a hand?</strong><p>Reach your Anvexa team with a question or service request.</p><button type="button" data-go-page="support">Contact support →</button></div>
+      </aside>
+      <main class="portal-main">
+        <div class="portal-heading">
+          <div><h1 id="portal-title">Good morning, welcome back</h1><p id="portal-subtitle">Here’s a snapshot of your connected workspace.</p></div>
+          <div class="portal-heading-actions">
+            <select class="period-select" id="period-select" aria-label="Dashboard date range"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option></select>
+            <button class="button small" type="button" data-go-page="support">Request support</button>
+          </div>
+        </div>
+
+        <section class="portal-page active" data-content="overview" aria-label="Workspace overview">
+          <div class="metric-grid">
+            <article class="metric-card"><div class="metric-top"><span>Cloud spend</span><span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18m5-13H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H7"/></svg></span></div><div class="metric-value" data-metric="spend">₹84,250</div><div class="metric-foot"><span>↓</span><span>4.2% vs. previous period</span></div></article>
+            <article class="metric-card"><div class="metric-top"><span>Service availability</span><span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 13a8 8 0 1 1 16 0"/><path d="m12 13 4-4M5 19h14"/></svg></span></div><div class="metric-value">99.96%</div><div class="metric-foot neutral">Across monitored services</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Monitored assets</span><span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 6.5h.01M8 17.5h.01"/></svg></span></div><div class="metric-value">18</div><div class="metric-foot neutral">Across 3 environments</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Open requests</span><span class="metric-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v12H8l-4 4z"/><path d="M8 9h8m-8 4h5"/></svg></span></div><div class="metric-value">2</div><div class="metric-foot neutral">1 update today</div></article>
+          </div>
+          <div class="portal-grid">
+            <article class="portal-card">
+              <div class="card-heading"><div><h2>Cloud spend trend</h2><p>Usage over the selected period</p></div><span class="chart-legend">Cloud spend</span></div>
+              <svg class="portal-chart" id="spend-chart" viewBox="0 0 640 210" preserveAspectRatio="none" role="img" aria-label="Sample cloud spend trend">
+                <defs><linearGradient id="portal-area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#2386f2" stop-opacity=".18"/><stop offset="1" stop-color="#2386f2" stop-opacity="0"/></linearGradient></defs>
+                <g stroke="#edf1f6" stroke-dasharray="3 5"><path d="M0 25H640"/><path d="M0 70H640"/><path d="M0 115H640"/><path d="M0 160H640"/></g>
+                <path id="chart-area" d="M0 148C47 142 58 122 102 129S166 158 207 117s54-7 89-39 56 24 94 6 54-19 87-3 53-23 89-28 55 21 74-8v150H0Z" fill="url(#portal-area)"/>
+                <path id="chart-line" d="M0 148C47 142 58 122 102 129S166 158 207 117s54-7 89-39 56 24 94 6 54-19 87-3 53-23 89-28 55 21 74-8" fill="none" stroke="#2386f2" stroke-width="3" stroke-linecap="round"/>
+                <g fill="#8a96a8" font-size="10"><text x="0" y="200">Mon</text><text x="99" y="200">Tue</text><text x="198" y="200">Wed</text><text x="297" y="200">Thu</text><text x="396" y="200">Fri</text><text x="495" y="200">Sat</text><text x="602" y="200">Sun</text></g>
+              </svg>
+            </article>
+            <article class="portal-card">
+              <div class="card-heading"><div><h2>Needs your attention</h2><p>Recent workspace updates</p></div></div>
+              <div class="alert-list">
+                <div class="alert-row"><span class="alert-indicator">!</span><span><strong>Storage nearing threshold</strong><small>Production database is at 78% of allocated storage.</small></span></div>
+                <div class="alert-row"><span class="alert-indicator ok">✓</span><span><strong>Weekly report is ready</strong><small>Your operations summary is available to review.</small></span></div>
+                <div class="alert-row"><span class="alert-indicator ok">✓</span><span><strong>Security checks complete</strong><small>No critical findings in the latest check.</small></span></div>
+              </div>
+            </article>
+          </div>
+          <div class="portal-grid">
+            <article class="portal-card">
+              <div class="card-heading"><div><h2>Connected resources</h2><p>Quick view of monitored services</p></div><button class="text-link" type="button" data-go-page="infrastructure" style="border:0;background:none;padding:0;cursor:pointer">View all <span>→</span></button></div>
+              <div class="resource-list">
+                <div class="resource-row"><div class="resource-info"><span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="7" rx="2"/><rect x="4" y="14" width="16" height="7" rx="2"/><path d="M8 6.5h.01M8 17.5h.01"/></svg></span><span><strong>Production database</strong><small>ap-south-1 · Database</small></span></div><span class="resource-value">78% storage</span><span class="status-pill warn">Review</span></div>
+                <div class="resource-row"><div class="resource-info"><span class="feature-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 18h12a4 4 0 0 0 .4-8A6.5 6.5 0 0 0 6 9a4.5 4.5 0 0 0 0 9Z"/></svg></span><span><strong>Customer portal</strong><small>ap-south-1 · Application</small></span></div><span class="resource-value">Healthy</span><span class="status-pill">Operational</span></div>
+                <div class="resource-row"><div class="resource-info"><span class="feature-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V5m0 14h17"/><path d="m7 15 4-4 3 2 6-7"/></svg></span><span><strong>Analytics service</strong><small>ap-south-1 · Application</small></span></div><span class="resource-value">Healthy</span><span class="status-pill">Operational</span></div>
+              </div>
+            </article>
+            <article class="portal-card">
+              <div class="card-heading"><div><h2>Latest reports</h2><p>Recent workspace updates</p></div><button class="text-link" type="button" data-go-page="reports" style="border:0;background:none;padding:0;cursor:pointer">All reports <span>→</span></button></div>
+              <div class="activity">
+                <div class="activity-row"><span>Weekly operations · Oct 26</span><strong>View&nbsp; →</strong></div>
+                <div class="activity-row"><span>Cloud spend · Oct 20</span><strong>View&nbsp; →</strong></div>
+                <div class="activity-row"><span>Security summary · Oct 18</span><strong>View&nbsp; →</strong></div>
+              </div>
+            </article>
+          </div>
+          <article class="portal-card cfo-overview-card" style="margin-top:15px">
+            <div class="cfo-overview-copy">
+              <span class="feature-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18m5-13H9.5a3 3 0 0 0 0 6h5a3 3 0 0 1 0 6H7"/><path d="m18 4 2 2-2 2"/></svg></span>
+              <span><h2>AI Cloud CFO <span class="premium-label" style="margin-left:6px;padding:4px 7px;font-size:.57rem">Premium</span></h2><p>Forecast your bill, watch budget thresholds, and find cloud resources worth reviewing.</p><div class="cfo-overview-forecast">Forecast this month: ₹1,16,500 · 3 sample savings opportunities</div></span>
+            </div>
+            <button class="button secondary small" type="button" data-go-page="cfo">View cost insights <span aria-hidden="true">→</span></button>
+          </article>
+        </section>
+
+        <section class="portal-page" data-content="cfo" aria-label="AI Cloud CFO">
+          <div class="metric-grid">
+            <article class="metric-card"><div class="metric-top"><span>Estimated monthly bill</span><span class="metric-icon">₹</span></div><div class="metric-value">₹1,16,500</div><div class="metric-foot neutral">Illustrative forecast</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Budget used</span><span class="metric-icon">◷</span></div><div class="metric-value">72%</div><div class="metric-foot neutral">₹84,250 of ₹1,17,000</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Recommendations</span><span class="metric-icon">↘</span></div><div class="metric-value">3</div><div class="metric-foot neutral">Sample opportunities to review</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Budget status</span><span class="metric-icon">✓</span></div><div class="metric-value" style="font-size:1.35rem">On track</div><div class="metric-foot">No threshold crossed in this demo</div></article>
+          </div>
+          <div class="portal-grid">
+            <article class="portal-card">
+              <div class="card-heading"><div><h2>Cloud bill forecast</h2><p>Projected spend compared with your monthly budget</p></div><span class="status-pill">Forecast</span></div>
+              <svg class="portal-chart" viewBox="0 0 640 210" preserveAspectRatio="none" role="img" aria-label="Illustrative cloud bill forecast rising toward the monthly budget">
+                <g stroke="#edf1f6" stroke-dasharray="3 5"><path d="M0 25H640"/><path d="M0 70H640"/><path d="M0 115H640"/><path d="M0 160H640"/></g>
+                <path d="M0 160C60 153 85 143 140 139s67-17 106-28 62 3 100-20 62-4 98-21 62 4 91-12" fill="none" stroke="#2386f2" stroke-width="3" stroke-linecap="round"/>
+                <path d="M445 58C480 49 505 57 536 42s61-3 104-17" fill="none" stroke="#10b990" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round"/>
+                <path d="M0 34H640" fill="none" stroke="#e4a238" stroke-width="1.5" stroke-dasharray="5 6"/>
+                <g fill="#8a96a8" font-size="10"><text x="0" y="200">Oct 1</text><text x="190" y="200">Oct 10</text><text x="385" y="200">Oct 20</text><text x="580" y="200">Oct 31</text><text x="560" y="28">Budget</text></g>
+              </svg>
+              <div class="cfo-chart-legend"><span>Actual usage</span><span>Projected spend</span></div>
+              <div class="cfo-budget"><div class="cfo-budget-heading"><span>Monthly budget progress</span><strong>₹84,250 / ₹1,17,000</strong></div><div class="budget-track" aria-label="72 percent of sample monthly budget used"><span></span></div></div>
+            </article>
+            <article class="portal-card">
+              <div class="card-heading"><div><h2>Cloud accounts</h2><p>Designed for your multi-cloud view</p></div></div>
+              <div class="cfo-platforms"><span>AWS · Sample</span><span>Azure · Sample</span><span>Google Cloud · Sample</span></div>
+              <div class="alert-list">
+                <div class="alert-row"><span class="alert-indicator ok">✓</span><span><strong>Budget is on track</strong><small>Current sample usage is below the configured monthly limit.</small></span></div>
+                <div class="alert-row"><span class="alert-indicator">!</span><span><strong>Forecast approaches budget</strong><small>Review the projection and recommendations before increasing workloads.</small></span></div>
+              </div>
+            </article>
+          </div>
+          <article class="portal-card" style="margin-top:15px">
+            <div class="card-heading"><div><h2>Optimization opportunities</h2><p>Example recommendations for your team to review before making changes.</p></div><span class="status-pill warn">Review before applying</span></div>
+            <div class="portal-table-wrap"><table class="portal-table"><thead><tr><th>Resource</th><th>Observation</th><th>Suggested action</th><th>Potential monthly impact</th></tr></thead><tbody>
+              <tr><td>Staging compute</td><td>Low activity outside work hours</td><td>Review a scheduled shutdown</td><td>₹4,800 sample estimate</td></tr>
+              <tr><td>Production database</td><td>Capacity appears underused</td><td>Review right-sizing options</td><td>₹3,200 sample estimate</td></tr>
+              <tr><td>Worker instances</td><td>Demand varies during the day</td><td>Consider auto-scaling rules</td><td>₹2,100 sample estimate</td></tr>
+            </tbody></table></div>
+          </article>
+          <p class="empty-note">Demo only: forecasts, budget values, resource observations, and savings estimates are illustrative, not live cloud data or guaranteed savings. Recommendations require client review; connect cloud accounts and billing data before launch.</p>
+        </section>
+
+        <section class="portal-page" data-content="infrastructure" aria-label="Infrastructure">
+          <article class="portal-card">
+            <div class="card-heading"><div><h2>Connected infrastructure</h2><p>Sample inventory of services monitored in this workspace.</p></div><span class="status-pill">All systems operational</span></div>
+            <div class="portal-table-wrap"><table class="portal-table"><thead><tr><th>Resource</th><th>Type</th><th>Region</th><th>Usage</th><th>Status</th></tr></thead><tbody>
+              <tr><td>Production database</td><td>Database</td><td>ap-south-1</td><td>78% storage</td><td><span class="status-pill warn">Review</span></td></tr>
+              <tr><td>Customer portal</td><td>Application</td><td>ap-south-1</td><td>42% capacity</td><td><span class="status-pill">Operational</span></td></tr>
+              <tr><td>Analytics service</td><td>Application</td><td>ap-south-1</td><td>36% capacity</td><td><span class="status-pill">Operational</span></td></tr>
+              <tr><td>Document storage</td><td>Storage</td><td>ap-south-1</td><td>61% capacity</td><td><span class="status-pill">Operational</span></td></tr>
+              <tr><td>Backup vault</td><td>Backup</td><td>ap-south-1</td><td>Last run: today</td><td><span class="status-pill">Operational</span></td></tr>
+            </tbody></table></div>
+          </article>
+          <p class="empty-note">Resource names and usage values are illustrative. A connected client workspace would show your actual configured services.</p>
+        </section>
+
+        <section class="portal-page" data-content="reports" aria-label="Reports">
+          <article class="portal-card">
+            <div class="card-heading"><div><h2>Reports &amp; insights</h2><p>Useful updates for understanding your operations.</p></div></div>
+            <div class="portal-table-wrap"><table class="portal-table"><thead><tr><th>Report</th><th>Period</th><th>Updated</th><th>Category</th><th>Action</th></tr></thead><tbody>
+              <tr><td>Weekly operations summary</td><td>Oct 20 – Oct 26</td><td>Oct 26, 2026</td><td>Operations</td><td><button class="text-link sample-report" type="button" style="border:0;background:none;padding:0;cursor:pointer">Preview →</button></td></tr>
+              <tr><td>Cloud spend overview</td><td>Oct 1 – Oct 20</td><td>Oct 20, 2026</td><td>Cost</td><td><button class="text-link sample-report" type="button" style="border:0;background:none;padding:0;cursor:pointer">Preview →</button></td></tr>
+              <tr><td>Security check summary</td><td>October 2026</td><td>Oct 18, 2026</td><td>Security</td><td><button class="text-link sample-report" type="button" style="border:0;background:none;padding:0;cursor:pointer">Preview →</button></td></tr>
+              <tr><td>Service health review</td><td>September 2026</td><td>Oct 1, 2026</td><td>Infrastructure</td><td><button class="text-link sample-report" type="button" style="border:0;background:none;padding:0;cursor:pointer">Preview →</button></td></tr>
+            </tbody></table></div>
+          </article>
+          <p class="empty-note">These are sample report entries for the prototype. Report generation and downloads need to be connected to your platform.</p>
+        </section>
+
+        <section class="portal-page" data-content="security" aria-label="Security">
+          <div class="metric-grid">
+            <article class="metric-card"><div class="metric-top"><span>Security posture</span><span class="metric-icon">✓</span></div><div class="metric-value" style="font-size:1.35rem">In good shape</div><div class="metric-foot neutral">Sample workspace summary</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Latest review</span><span class="metric-icon">↻</span></div><div class="metric-value" style="font-size:1.35rem">Oct 18</div><div class="metric-foot neutral">Sample review date</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Items to review</span><span class="metric-icon">!</span></div><div class="metric-value">1</div><div class="metric-foot neutral">One recommendation</div></article>
+            <article class="metric-card"><div class="metric-top"><span>Critical findings</span><span class="metric-icon">✓</span></div><div class="metric-value">0</div><div class="metric-foot">No critical findings shown</div></article>
+          </div>
+          <article class="portal-card" style="margin-top:15px">
+            <div class="card-heading"><div><h2>Security activity</h2><p>Illustrative examples of the checks a client workspace could surface.</p></div></div>
+            <div class="alert-list">
+              <div class="alert-row"><span class="alert-indicator ok">✓</span><span><strong>Access review completed</strong><small>Oct 18 · Review user access and permissions regularly.</small></span></div>
+              <div class="alert-row"><span class="alert-indicator ok">✓</span><span><strong>Backup check completed</strong><small>Oct 17 · Latest scheduled backup check completed.</small></span></div>
+              <div class="alert-row"><span class="alert-indicator">!</span><span><strong>Recommendation: review storage access</strong><small>Oct 16 · Confirm access settings for the production document store.</small></span></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="portal-page" data-content="support" aria-label="Support">
+          <article class="portal-card">
+            <div class="card-heading"><div><h2>How can we help?</h2><p>Share a question or service request with your Anvexa team.</p></div></div>
+            <form class="support-form" id="support-form">
+              <label>Your name<input name="name" autocomplete="name" placeholder="Name" required></label>
+              <label>Email address<input name="email" type="email" autocomplete="email" placeholder="you@company.com" required></label>
+              <label>What do you need help with?<select name="topic" required><option value="">Choose a topic</option><option>Cloud infrastructure</option><option>Security</option><option>Business platform</option><option>Billing or account</option><option>Other</option></select></label>
+              <label>Details<textarea name="details" placeholder="Tell us a little more..." required></textarea></label>
+              <p class="form-note">Prototype only: this demo form does not send or store your information. Connect it to your support system before publishing.</p>
+              <div><button class="button" type="submit">Review request <span aria-hidden="true">→</span></button></div>
+            </form>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const body = document.body;
+    const toast = document.getElementById("toast");
+    const navLinks = document.getElementById("marketing-nav");
+    const portalSidebar = document.getElementById("portal-sidebar");
+    let toastTimer;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 4200);
+    }
+
+    function openPortal(page = "overview") {
+      body.classList.add("portal-open");
+      window.scrollTo(0, 0);
+      setPortalPage(page);
+    }
+
+    function closePortal() {
+      body.classList.remove("portal-open");
+      portalSidebar.classList.remove("mobile-open");
+      window.scrollTo(0, 0);
+    }
+
+    function setPortalPage(page) {
+      const pageTitles = {
+        overview: ["Good morning, welcome back", "Here’s a snapshot of your connected workspace."],
+        cfo: ["AI Cloud CFO", "Forecast cloud costs, review budget alerts, and explore optimization ideas."],
+        infrastructure: ["Infrastructure", "Review the services connected to your workspace."],
+        reports: ["Reports & insights", "Updates to help you understand your operations."],
+        security: ["Security", "Review sample security checks and recommendations."],
+        support: ["Support", "Send a question or service request to your Anvexa team."]
+      };
+      document.querySelectorAll(".portal-nav button[data-page]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.page === page);
+      });
+      document.querySelectorAll(".portal-page[data-content]").forEach((section) => {
+        section.classList.toggle("active", section.dataset.content === page);
+      });
+      document.getElementById("portal-title").textContent = pageTitles[page][0];
+      document.getElementById("portal-subtitle").textContent = pageTitles[page][1];
+      portalSidebar.classList.remove("mobile-open");
+      document.getElementById("portal-menu-toggle").setAttribute("aria-expanded", "false");
+    }
+
+    document.querySelectorAll(".portal-open").forEach((button) => button.addEventListener("click", () => openPortal()));
+    document.querySelectorAll(".portal-nav button[data-page]").forEach((button) => button.addEventListener("click", () => setPortalPage(button.dataset.page)));
+    document.querySelectorAll("[data-go-page]").forEach((button) => button.addEventListener("click", () => {
+      openPortal(button.dataset.goPage);
+    }));
+    document.querySelectorAll(".portal-home").forEach((link) => link.addEventListener("click", (event) => {
+      event.preventDefault();
+      closePortal();
+    }));
+    document.getElementById("menu-toggle").addEventListener("click", (event) => {
+      const isOpen = navLinks.classList.toggle("open");
+      event.currentTarget.setAttribute("aria-expanded", String(isOpen));
+    });
+    navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      document.getElementById("menu-toggle").setAttribute("aria-expanded", "false");
+    }));
+    document.getElementById("portal-menu-toggle").addEventListener("click", (event) => {
+      const isOpen = portalSidebar.classList.toggle("mobile-open");
+      event.currentTarget.setAttribute("aria-expanded", String(isOpen));
+    });
+    document.getElementById("period-select").addEventListener("change", (event) => {
+      const ranges = { "7": "₹84,250", "30": "₹3,42,800", "90": "₹9,76,400" };
+      document.querySelector('[data-metric="spend"]').textContent = ranges[event.target.value];
+      showToast("Showing illustrative cloud spend for the selected period.");
+    });
+    document.querySelectorAll(".sample-report").forEach((button) => button.addEventListener("click", () => {
+      showToast("Sample report preview only. Connect reports to your client data before launch.");
+    }));
+    document.getElementById("support-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      showToast("Demo only: your request has not been sent or saved. Connect a support service to enable submissions.");
+      event.currentTarget.reset();
+    });
+  </script>
+</body>
+</html>
